@@ -1,0 +1,57 @@
+<!-- Main content -->
+<main class="main">
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Admin Control Panel</li>
+
+    <li class="breadcrumb-menu">
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a class="btn btn-primary" [routerLink]="['/login']" routerLinkActive="active">Logout</a>
+      </div>
+    </li>
+
+  </ol>
+
+  <div class="container-fluid">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <div class="pb-h">Nella GESTIONE ACCOUNT è possibile creare un nuovo profilo utente, specificando Username (per convenzione,
+                un indirizzo mail in un formato valido), Password (lunghezza non inferiore agli 8 caratteri) e tipologia
+                (Utente standard o Amministratore). E' inoltre possibile modificare i dati di un profilo utente esistente
+                o eliminare un profilo utente non più utilizzato.
+              </div>
+              <a class="btn btn-primary" [routerLink]="['user']" routerLinkActive="active">Gestione Account</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <div class="pb-h gi">Nella GESTIONE IMPIANTI è possibile creare un nuovo impianto, specificando il nome dell'impianto ed il cliente
+                proprietario. E' inoltre possibile modificare i dati di un impianto esistente o eliminare un impianto non più attivo.
+              </div>
+              <a class="btn btn-primary" [routerLink]="['plant']" routerLinkActive="active">Gestione Impianti</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <div class="pb-h gs">Nella GESTIONE SENSORI è possibile creare nuovi sensori, specificando grandezza fisica rilevata (tra le 6 disponibili)
+                e marca del produttore. E' inoltre possibile eliminare sensori esistenti.
+              </div>
+              <a class="btn btn-primary" [routerLink]="['sensor']" routerLinkActive="active">Gestione Sensori</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <router-outlet></router-outlet>
+
+    </div>
+  </div>

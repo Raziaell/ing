@@ -1,0 +1,124 @@
+<!-- Main content -->
+<main class="main">
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">La dashboard di {{ username }}</li>
+
+    <li class="breadcrumb-menu">
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a class="btn btn-primary" [routerLink]="['/login']" routerLinkActive="active">Logout</a>
+      </div>
+    </li>
+
+  </ol>
+
+  <div class="container-fluid">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <strong>I tuoi Impianti</strong>
+            </div>
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12 px-2">
+
+                  <div class='cursor-hand' *ngFor="let plant of plants" (click)='getDetections(plant.Id)'>
+                    <a href="javascript:void(0)" >{{plant.Nome}}</a>
+                    <progress *ngIf="plant.Stato == 1" class="progress progress-sm progress-success mt-h" value="100" max="100"></progress>
+                    <progress *ngIf="plant.Stato == 0" class="progress progress-sm progress-warning mt-h" value="100" max="100"></progress>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/.card-->
+
+          <div *ngIf='clicked'>
+            <div class="row">
+              <div class="col-sm-6 col-md-3">
+                <div class="card">
+                  <div class="card-block">
+
+                    <div class="h4 m-0">{{ errorNum }}</div>
+                    <div *ngIf="errorNum == 1" class="pb-h">Errore nelle rilevazioni</div>
+                    <div *ngIf="errorNum != 1" class="pb-h">Errori nelle rilevazioni</div>
+
+                    <progress *ngIf="errorNum == 0" class="progress progress-xs progress-success mb-h" value="100" max="100"></progress>
+                    <progress *ngIf="errorNum >= 1" class="progress progress-xs progress-danger mb-h" value="100" max="100"></progress>
+
+                    <small *ngIf="errorNum == 0" class="text-muted">Tutti i sensori inviano correttamente le rilevazioni</small>
+                    <small *ngIf="errorNum >= 1" class="text-muted">Ci sono alcuni errori: si consiglia di controllare la tabella riepilogativa in basso per maggiori informazioni</small>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--/col-->
+              <div class="col-sm-6 col-md-3">
+                <div class="card">
+                  <div class="card-block">
+
+                    <div class="h4 m-0">{{ detNum }}</div>
+                    <div *ngIf="detNum == 1" class="pb-h">Rilevazione effettuata oggi</div>
+                    <div *ngIf="detNum != 1" class="pb-h">Rilevazioni effettuate oggi</div>
+
+                    <progress *ngIf="detNum == 0" class="progress progress-xs progress-danger mb-h" value="100" max="100"></progress>
+                    <progress *ngIf="detNum > 0 && detNum <= 20" class="progress progress-xs progress-warning mb-h" value="100" max="100"></progress>
+                    <progress *ngIf="detNum > 20" class="progress progress-xs progress-success mb-h" value="100" max="100"></progress>
+
+                    <small *ngIf="detNum >= 0 && detNum <=20" class="text-muted">Poche rilevazioni in un giorno possono indicare problemi di sincronizzazione</small>
+                    <small *ngIf="detNum > 20" class="text-muted">Il numero di rilevazioni raccolte oggi indica l'assenza di problemi di sincronizzazione</small>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--/col-->
+              <div class="col-sm-6 col-md-3">
+                <div class="card">
+                  <div class="card-block">
+
+                    <div class="h4 m-0">{{ detNumTotal }}</div>
+                    <div *ngIf="detNumTotal == 1" class="pb-h">Rilevazione totale ricevute dall'impianto</div>
+                    <div *ngIf="detNumTotal != 1" class="pb-h">Rilevazioni totali ricevute dall'impianto</div>
+
+                    <progress *ngIf="detNumTotal > 0 && detNumTotal <=20" class="progress progress-xs progress-warning mb-h" value="100" max="100"></progress>
+                    <progress *ngIf="detNumTotal > 20" class="progress progress-xs progress-success mb-h" value="100" max="100"></progress>
+
+                    <small *ngIf="detNumTotal > 0 && detNumTotal <= 20" class="text-muted">Poche rilevazioni totali potrebbero indicare che l'impianto ha problemi di funzionamento da giorni</small>
+                    <small *ngIf="detNumTotal > 20" class="text-muted">Questo numero di rilevazioni totali indica che l'impianto ha funzionato correttamente nei giorni precedenti</small>
+                  </div>
+                </div>
+              </div>
+
+              <!--/col-->
+              <div class="col-sm-6 col-md-3">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="h4 m-0">{{ avgTemp }} °C</div>
+                    <div class="pb-h">Temperatura Media del tuo impianto</div>
+
+                    <progress *ngIf="avgTemp <= 0 && avgTemp >= 40" class="progress progress-xs progress-warning mb-h" value="100" max="100"></progress>
+                    <progress *ngIf="0 < avgTemp < 40" class="progress progress-xs progress-success mb-h" value="100" max="100"></progress>
+
+                    <small *ngIf="avgTemp <= 0 && avgTemp >= 40" class="text-muted">La temperatura media del tuo impianto ha valori fuori dalla norma</small>
+                    <small *ngIf="0 < avgTemp < 40" class="text-muted">La temperatura media del tuo impianto è nel range di sicurezza</small>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--/col-->
+            </div>
+            <!--/row-->
+
+            <router-outlet></router-outlet>
+
+            <!--/.card-->
+          </div>
+        </div>
+
+      </div>

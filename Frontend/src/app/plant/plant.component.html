@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-sm-12 ">
+    <div class="card">
+      <div class="card-header">
+        <strong>Aggiungi Impianto</strong>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-sm-12">
+
+            <form class="login-form" [formGroup]="plantForm" (ngSubmit)="insertPlant(plantForm.value, plantForm.valid)">
+
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <label for="name">Nome dell'impianto</label>
+                  <div class="form-group" [ngClass]="{'has-danger':!plantForm.controls['Name'].valid && plantForm.controls['Name'].touched}">
+                    <input id="Name" type="text" formControlName="Name" class="form-control" [formControl]="plantForm.controls['Name']" required
+                      placeholder="Nome" autofocus [ngClass]="{'has-danger':!plantForm.controls['Name'].valid && plantForm.controls['Name'].touched}">
+                  </div>
+
+                  <div class="input-group mb-1 has-danger">
+                    <div *ngIf="plantForm.controls['Name'].hasError('required') && plantForm.controls['Name'].touched" class="form-control-feedback pb-0">Il nome dell'impianto è obbligatorio</div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+
+                  <label for="owner">Cliente proprietario dell'impianto</label>
+                  <div *ngFor='let customer of customers'>
+                    <input type="radio" name="Owner" value="{{customer.Username}}" formControlName="Owner" [formControl]="plantForm.controls['Owner']">
+                    <label for="customer">{{customer.Username}}</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary font-white" [disabled]="!plantForm.valid">Aggiungi impianto</button>
+            </form>
+            <p *ngIf='successAdd == true' class='my-1 success form-control'>Inserimento del nuovo impianto effettuato con successo</p>
+            <p *ngIf='successAdd == false' class='my-1 failure form-control'>L'inserimento del nuovo impianto è fallito: il nome dell'impianto è già utilizzato!</p>
+
+          </div>
+        </div>
+        <!--/row-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Trova Impianto per Eliminarlo o Modificarlo</strong>
+      </div>
+      <div class="card-block">
+        <div class="form-group">
+          <label class="form-control-label" for="appendedInputButton">Inserisci il nome dell'impianto</label>
+          <div class="controls">
+            <div class="input-group">
+              <input id="appendedInputButton" class="form-control" size="16" type="text">
+              <span class="input-group-btn">
+                <button class="btn btn-primary font-white" type="button" (click)='search()'>Cerca</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p *ngIf='successSearch == false' class='my-1 failure form-control'>Ricerca fallita</p>
+
+      </div>
+    </div>
+  </div>
+</div>

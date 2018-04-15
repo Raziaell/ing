@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Andamento dei dati</strong>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-12 px-2">
+            <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Tabella delle Rilevazioni</strong>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-12 px-2">
+            <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header">
+        <strong>Autorizza Terza Parte</strong>
+      </div>
+      <div class="card-block">
+
+        <form class="login-form" [formGroup]="thirdActorForm" (ngSubmit)="insertThirdActor(thirdActorForm.value, thirdActorForm.valid)">
+
+          <div class="row">
+            <div class="col-sm-12">
+
+              <label for="username">Username</label>
+              <div class="form-group" [ngClass]="{'has-danger':!thirdActorForm.controls['Username'].valid && thirdActorForm.controls['Username'].touched}">
+                <input id="Username" type="text" formControlName="Username" class="form-control" [formControl]="thirdActorForm.controls['Username']"
+                  required placeholder="Username" autofocus [ngClass]="{'has-danger':!thirdActorForm.controls['Username'].valid && thirdActorForm.controls['Username'].touched}">
+              </div>
+
+              <div class="input-group mb-1 has-danger">
+                <div *ngIf="thirdActorForm.controls['Username'].hasError('required') && thirdActorForm.controls['Username'].touched" class="form-control-feedback">L'Username è obbligatorio</div>
+                <div *ngIf="thirdActorForm.controls['Username'].hasError('pattern') && thirdActorForm.controls['Username'].touched" class="form-control-feedback">Il formato dell'Username deve essere aaa@bbb.ccc</div>
+              </div>
+
+            </div>
+          </div>
+          <!--/row-->
+
+          <div class="row">
+            <div class="col-sm-12">
+
+              <label for="password">Password</label>
+              <div class="form-group" [ngClass]="{'has-danger':!thirdActorForm.controls['Password'].valid && thirdActorForm.controls['Password'].touched}">
+                <input id="password" type="password" formControlName="Password" class="form-control" [formControl]="thirdActorForm.controls['Password']"
+                  required placeholder="Password" [ngClass]="{'has-danger':!thirdActorForm.controls['Password'].valid && thirdActorForm.controls['Password'].touched}">
+              </div>
+
+              <div class="input-group mb-1 has-danger">
+                <div *ngIf="thirdActorForm.controls['Password'].hasError('required') && thirdActorForm.controls['Password'].touched" class="form-control-feedback form-message">La Password è obbligatoria</div>
+                <div *ngIf="thirdActorForm.controls['Password'].hasError('minlength') && thirdActorForm.controls['Password'].touched" class="form-control-feedback">La Password deve avere almeno 8 caratteri </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!--/row-->
+
+          <div class="row">
+            <div class="form-group col-sm-12">
+
+              <label for="ccmonth">Impianti autorizzati </label>
+              <div *ngFor='let plant of plants'>
+                <input type="checkbox" name="plant" value="plant" (change)="onChange(plant.Nome, $event.target.checked)">
+                <label for="subscribeNews">{{plant.Nome}}</label>
+              </div>
+              
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary font-white" [disabled]="!thirdActorForm.valid">Autorizzazione Terza Parte</button>
+        </form>
+        <p *ngIf='success == 1' class='my-1 success form-control'>Autorizzazione terza parte riuscita</p>
+        <p *ngIf='success == 2' class='my-1 failure form-control'>Autorizzazione terza parte fallita: l'username è già utilizzato!</p>
+      </div>
+
+      <!--/row-->
+    </div>
+  </div>
+</div>

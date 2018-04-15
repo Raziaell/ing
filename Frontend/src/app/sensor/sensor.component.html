@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-sm-12 ">
+    <div class="card">
+      <div class="card-header">
+        <strong>Aggiungi Sensore</strong>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-sm-12">
+
+            <form class="login-form" [formGroup]="sensorForm" (ngSubmit)="insertSensor(sensorForm.value, sensorForm.valid)">
+
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <label for="marca">Marca del sensore</label>
+                  <div class="form-group" [ngClass]="{'has-danger':!sensorForm.controls['Marca'].valid && sensorForm.controls['Marca'].touched}">
+                    <input id="Marca" type="text" formControlName="Marca" class="form-control" [formControl]="sensorForm.controls['Marca']" required
+                      placeholder="Marca" autofocus [ngClass]="{'has-danger':!sensorForm.controls['Marca'].valid && sensorForm.controls['Marca'].touched}">
+                  </div>
+
+                  <div class="input-group mb-1 has-danger">
+                    <div *ngIf="sensorForm.controls['Marca'].hasError('required') && sensorForm.controls['Marca'].touched" class="form-control-feedback pb-0">La marca del sensore è obbligatoria</div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+
+                  <label for="typology">Tipologia del sensore</label>
+                  <div>
+                    <input type="radio" name="Typology" value="Temperatura" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Temperatura</label>
+                    <input type="radio" name="Typology" value="Umidità" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Umidità</label>
+                    <input type="radio" name="Typology" value="Precipitazioni" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Precipitazioni</label>
+                    <input type="radio" name="Typology" value="Pressione" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Pressione</label>
+                    <input type="radio" name="Typology" value="Inquinamento" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Inquinamento</label>
+                    <input type="radio" name="Typology" value="Vento" formControlName="Typology" [formControl]="sensorForm.controls['Typology']">
+                    <label for="customer">Vento</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+
+                  <label for="plants">Impianto a cui appartiene il sensore</label>
+                  <div *ngFor='let plant of plants'>
+                    <input type="radio" name="Plant" value="{{plant.Nome}}" formControlName="Plant" [formControl]="sensorForm.controls['Plant']">
+                    <label for="plant">{{plant.Nome}}</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary font-white" [disabled]="!sensorForm.valid">Aggiungi sensore</button>
+            </form>
+            <p *ngIf='successAdd == true' class='my-1 success form-control'>Inserimento del nuovo sensore effettuato con successo</p>
+            <p *ngIf='successAdd == false' class='my-1 failure form-control'>L'inserimento del nuovo sensore è fallito: contattare l'amministrazione di sistema</p>
+
+          </div>
+        </div>
+        <!--/row-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Trova Sensore per Eliminarlo</strong>
+      </div>
+      <div class="card-block">
+        <div class="form-group">
+          <label class="form-control-label" for="appendedInputButton">Inserisci la marca del sensore</label>
+          <div class="controls">
+            <div class="input-group">
+              <input id="appendedInputButton" class="form-control" size="16" type="text">
+              <span class="input-group-btn">
+                <button class="btn btn-primary font-white" type="button" (click)='search()'>Cerca</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p *ngIf='successSearch == false' class='my-1 failure form-control'>Ricerca fallita</p>
+
+      </div>
+    </div>
+  </div>
+</div>

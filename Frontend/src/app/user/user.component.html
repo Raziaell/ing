@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-sm-12 ">
+    <div class="card">
+      <div class="card-header">
+        <strong>Aggiungi Account</strong>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-sm-12">
+
+            <form class="login-form" [formGroup]="accountForm" (ngSubmit)="insertAccount(accountForm.value, accountForm.valid)">
+
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <label for="username">Username</label>
+                  <div class="form-group" [ngClass]="{'has-danger':!accountForm.controls['Username'].valid && accountForm.controls['Username'].touched}">
+                    <input id="Username" type="text" formControlName="Username" class="form-control" [formControl]="accountForm.controls['Username']"
+                      required placeholder="Username" autofocus [ngClass]="{'has-danger':!accountForm.controls['Username'].valid && accountForm.controls['Username'].touched}">
+                  </div>
+
+                  <div class="input-group mb-1 has-danger">
+                    <div *ngIf="accountForm.controls['Username'].hasError('required') && accountForm.controls['Username'].touched" class="form-control-feedback pb-0">L'Username è obbligatorio</div>
+                    <div *ngIf="accountForm.controls['Username'].hasError('pattern') && accountForm.controls['Username'].touched" class="form-control-feedback pb-0">Il formato dell'Username deve essere aaa@bbb.ccc</div>
+                  </div>
+
+                </div>
+              </div>
+              <!--/row-->
+
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <label for="password">Password</label>
+                  <div class="form-group" [ngClass]="{'has-danger':!accountForm.controls['Password'].valid && accountForm.controls['Password'].touched}">
+                    <input id="password" type="text" formControlName="Password" class="form-control" [formControl]="accountForm.controls['Password']"
+                      required placeholder="Password" [ngClass]="{'has-danger':!accountForm.controls['Password'].valid && accountForm.controls['Password'].touched}">
+                  </div>
+
+                  <div class="input-group mb-1 has-danger">
+                    <div *ngIf="accountForm.controls['Password'].hasError('required') && accountForm.controls['Password'].touched" class="form-control-feedback form-message pb-0">La Password è obbligatoria</div>
+                    <div *ngIf="accountForm.controls['Password'].hasError('minlength') && accountForm.controls['Password'].touched" class="form-control-feedback pb-0">La Password deve avere almeno 8 caratteri </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!--/row-->
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+
+                  <label for="typology">Tipologia Account</label>
+                  <select class="form-control" formControlName="Typology" [formControl]="accountForm.controls['Typology']">
+                    <option>Standard</option>
+                    <option>Amministratore</option>
+                  </select>
+
+                  <div class="input-group mb-1 has-danger">
+                    <div *ngIf="accountForm.controls['Typology'].hasError('required') && accountForm.controls['Typology'].touched" class="form-control-feedback form-message pb-0">La Tipologia di utente è obbligatoria</div>
+                  </div>
+
+
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary font-white" [disabled]="!accountForm.valid">Aggiungi Account</button>
+            </form>
+            <p *ngIf='successAdd == true' class='my-1 success form-control'>Inserimento nuovo Account riuscito</p>
+            <p *ngIf='successAdd == false' class='my-1 failure form-control'>Inserimento nuovo Account fallito: l'username è già utilizzato!</p>
+
+          </div>
+        </div>
+        <!--/row-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Trova Account per Eliminarlo o Modificarlo</strong>
+      </div>
+      <div class="card-block">
+        <div class="form-group">
+          <label class="form-control-label" for="appendedInputButton">Inserisci l'Username dell'Account</label>
+          <div class="controls">
+            <div class="input-group">
+              <input id="appendedInputButton" class="form-control" size="16" type="text">
+              <span class="input-group-btn">
+                <button class="btn btn-primary font-white" type="button" (click)='search()'>Cerca</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p *ngIf='successSearch == false' class='my-1 failure form-control'>Ricerca fallita</p>
+
+      </div>
+    </div>
+  </div>
+</div>

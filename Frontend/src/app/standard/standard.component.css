@@ -1,0 +1,7 @@
+.cursor-hand {
+    cursor: pointer;
+}
+
+a:focus {
+    color: #ff0000;
+}
